@@ -34,3 +34,5 @@ $string['privacy:metadata:profilefield_textregex:dataformat'] = 'A felhasználó
 $string['privacy:metadata:profilefield_textregex:fieldid'] = 'A profilmező azonosítója';
 $string['privacy:metadata:profilefield_textregex:tableexplanation'] = 'Kiegészítő profiladatok';
 $string['privacy:metadata:profilefield_textregex:userid'] = 'Azon felhasználónak az azonosítója, akinek az adatait a felhasználói profilmező szövegbeviteli eleme tárolja';
+$string['regex'] = 'Reguláris kifejezés';
+$string['regex_help'] = 'A beviteli mező ellenőrzésére szolgáló Perl típusu reguláris kifejezés. A kifejezés legyen összhangban a \'Kötelező\' beállítással, ha a mező nem kötelező, akkor a kifejezés is engedje meg az üres értéket. Érdemes egy pillantást vetni az üres mező ellenőrzés <a href="/admin/search.php?query=strictformsrequired">szigorúságát befolyásoló globális beállítsra</a>. Az elhatároló (delimeter) karakternek szerepelnie kell az elején és a végén. Pl: \"/^TEST[0-9A-F]{3}\/\$_utotag/\".';
