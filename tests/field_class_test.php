@@ -79,7 +79,7 @@ final class field_class_test extends advanced_testcase {
             'format_string' => ['HTML & is escaped', 'HTML &amp; is escaped'],
             'multilang_filter' =>
                 ['<span class="multilang" lang="en">English</span><span class="multilang" lang="fr">French</span>', 'English'],
-            'emoticons_filter' => ['No emoticons filter :-(', 'No emoticons filter :-(']
+            'emoticons_filter' => ['No emoticons filter :-(', 'No emoticons filter :-('],
         ];
     }
 

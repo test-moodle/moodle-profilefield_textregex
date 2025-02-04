@@ -49,7 +49,7 @@ final class provider_test extends provider_testcase {
      */
     public function setUp(): void {
         parent::setUp();
-        $this->resetAfterTest(true);
+        $this->resetAfterTest();
     }
 
     /**
@@ -177,7 +177,7 @@ final class provider_test extends provider_testcase {
         $checkboxprofilefieldid = $this->add_profile_field($categoryid, 'checkbox');
         // Create a user.
         $user = $this->getDataGenerator()->create_user();
-        $context = \context_user::instance($user->id);
+        $context = context_user::instance($user->id);
         // Add textregex user info data.
         $this->add_user_info_data($user->id, $textregexprofilefieldid, 'test textregex');
         // Add checkbox user info data.
