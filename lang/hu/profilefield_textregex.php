@@ -15,12 +15,13 @@
 // along with Moodle.  If not, see <https://www.gnu.org/licenses/>.
 
 /**
- * Strings for component 'profilefield_text', language 'hu', version '4.5'.
+ * Strings for component 'profilefield_textregex', language 'hu', version '4.5'.
  *
- * @package     profilefield_text
- * @category    string
- * @copyright   1999 Martin Dougiamas and contributors
- * @license     https://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @package   profilefield_textregex
+ * @category  string
+ * @author    Bence Molnar <molbence@gmail.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright 2025 onwards Bence Molnar
  */
 
 defined('MOODLE_INTERNAL') || die();

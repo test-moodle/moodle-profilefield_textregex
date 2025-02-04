@@ -18,10 +18,12 @@
  * Base class for unit tests for profilefield_textregex.
  *
  * @package   profilefield_textregex
+ * @category  test
  * @author    Bence Molnar <molbence@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright 2025 onwards Bence Molnar
  */
+
 namespace profilefield_textregex\privacy;
 
 use context_system;

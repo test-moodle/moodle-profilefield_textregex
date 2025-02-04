@@ -18,6 +18,7 @@
  * Strings for component 'profilefield_textregex', language 'en'.
  *
  * @package   profilefield_textregex
+ * @category  string
  * @author    Bence Molnar <molbence@gmail.com>
  * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @copyright 2025 onwards Bence Molnar
