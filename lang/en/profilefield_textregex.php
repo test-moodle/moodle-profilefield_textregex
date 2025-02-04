@@ -23,13 +23,16 @@
  * @copyright 2025 onwards Bence Molnar
  */
 
+$string['errorconfigdefault'] = 'The provided default value is not matching the regex.';
 $string['errorconfigregex'] = 'The provided regex is not a valid regex.';
 $string['errorregex'] = 'Entered value does not match against regex: {$a}';
-$string['pluginname'] = 'Textregex input';
-$string['privacy:metadata:profilefield_textregex:data'] = 'Textregex input user profile field user data';
-$string['privacy:metadata:profilefield_textregex:dataformat'] = 'The format of Textregex input user profile field user data';
+$string['pluginname'] = 'Short text with validation input';
+$string['privacy:metadata:profilefield_textregex:data'] = 'Short text with validation input user profile field user data';
+$string['privacy:metadata:profilefield_textregex:dataformat'] = 'The format of Short text with validation input user profile field user data';
 $string['privacy:metadata:profilefield_textregex:fieldid'] = 'The ID of the profile field';
 $string['privacy:metadata:profilefield_textregex:tableexplanation'] = 'Additional profile data';
-$string['privacy:metadata:profilefield_textregex:userid'] = 'The ID of the user whose data is stored by the Textregex input user profile field';
+$string['privacy:metadata:profilefield_textregex:userid'] = 'The ID of the user whose data is stored by the Short text with validation input user profile field';
 $string['regex'] = 'Regular expression';
 $string['regex_help'] = 'Perl style regular expression to test the field value against. The regex should align with the \'required\' setting, if it is not required, regex has to allow empty field as well. And also take a look at <a href="/admin/search.php?query=strictformsrequired">Strictness setting</a>. Please also include the delimiters. E.g: \"/^TEST[0-9A-F]{3}\/\$_postfix/\".';
+$string['regex'] = 'Reguláris kifejezés';
+$string['regex_help'] = 'A beviteli mező ellenőrzésére szolgáló Perl típusu reguláris kifejezés. A kifejezés legyen összhangban a \'Kötelező\' beállítással, ha a mező nem kötelező, akkor a kifejezés is engedje meg az üres értéket. Érdemes egy pillantást vetni az üres mező ellenőrzés <a href="/admin/search.php?query=strictformsrequired">szigorúságát befolyásoló globális beállítsra</a>. Az elhatároló (delimeter) karakternek szerepelnie kell az elején és a végén. Pl: \"/^TEST[0-9A-F]{3}\/\$_utotag/\".';
