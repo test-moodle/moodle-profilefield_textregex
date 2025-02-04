@@ -11,4 +11,4 @@ Once the field is defined, users can use it like a normal text field. Enter data
 
 ## Course fields
 This plugin cannot be used as a custom field, e.g. for course custom fields.
-If you want to add regex validated fields to a course, please use https://github.com/benyovszky/moodle-customfield_textrege plugin instead.
+If you want to add regex validated fields to a course, please use https://github.com/benyovszky/moodle-customfield_textregex plugin instead.
