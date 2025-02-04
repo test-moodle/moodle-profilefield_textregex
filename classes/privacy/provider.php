@@ -41,8 +41,9 @@ use coding_exception;
 /**
  * Privacy class for requesting user data.
  *
- * @copyright  2018 Mihail Geshoski <mihail@moodle.com>
- * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @author    Bence Molnar <molbence@gmail.com>
+ * @license   http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ * @copyright 2025 onwards Bence Molnar
  */
 class provider implements
     \core_privacy\local\metadata\provider,
