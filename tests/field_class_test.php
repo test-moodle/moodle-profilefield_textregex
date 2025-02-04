@@ -45,7 +45,7 @@ use stdClass;
  * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @covers     \profilefield_textregex\profile_field_textregex
  */
-class field_class_test extends advanced_testcase {
+final class field_class_test extends advanced_testcase {
     /**
      * Test that the profile textregex data is formatted and required filters applied
      *
@@ -93,7 +93,7 @@ class field_class_test extends advanced_testcase {
             'datatype' => 'textregex',
             'name' => 'Test',
             'shortname' => 'test',
-            'param3' => '/^[A-Z]+$/', // Regex
+            'param3' => '/^[A-Z]+$/', // Regex.
         ]);
         $field = new profile_field_textregex(0, 0, $fielddata);
 
@@ -115,7 +115,7 @@ class field_class_test extends advanced_testcase {
             'datatype' => 'textregex',
             'name' => 'Test',
             'shortname' => 'test',
-            'param3' => '/^[A-Z]+$/', // Regex
+            'param3' => '/^[A-Z]+$/', // Regex.
         ]);
         $field = new profile_field_textregex(0, 0, $fielddata);
 

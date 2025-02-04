@@ -28,9 +28,15 @@ namespace profilefield_textregex\privacy;
 
 use core_privacy\local\metadata\collection;
 use core_privacy\local\request\contextlist;
-use core_privacy\local\request\approved_contextlist;
 use core_privacy\local\request\userlist;
 use core_privacy\local\request\approved_userlist;
+use core_privacy\local\request\approved_contextlist;
+use core_privacy\local\request\core_userlist_provider;
+use core_privacy\local\request\writer;
+use context;
+use context_user;
+use dml_exception;
+use coding_exception;
 
 /**
  * Privacy class for requesting user data.
@@ -40,7 +46,7 @@ use core_privacy\local\request\approved_userlist;
  */
 class provider implements
     \core_privacy\local\metadata\provider,
-    \core_privacy\local\request\core_userlist_provider,
+    core_userlist_provider,
     \core_privacy\local\request\plugin\provider {
 
     /**
@@ -88,10 +94,10 @@ class provider implements
      *
      * @param userlist $userlist The userlist containing the list of users who have data in this context/plugin combination.
      */
-    public static function get_users_in_context(userlist $userlist) {
+    public static function get_users_in_context(userlist $userlist): void {
         $context = $userlist->get_context();
 
-        if (!$context instanceof \context_user) {
+        if (!$context instanceof context_user) {
             return;
         }
 
@@ -114,8 +120,9 @@ class provider implements
      * Export all user data for the specified user, in the specified contexts.
      *
      * @param approved_contextlist $contextlist The approved contexts to export information for.
+     * @throws coding_exception|dml_exception
      */
-    public static function export_user_data(approved_contextlist $contextlist) {
+    public static function export_user_data(approved_contextlist $contextlist): void {
         $user = $contextlist->get_user();
         foreach ($contextlist->get_contexts() as $context) {
             // Check if the context is a user context.
@@ -127,7 +134,7 @@ class provider implements
                         'description' => $result->description,
                         'data' => $result->data,
                     ];
-                    \core_privacy\local\request\writer::with_context($context)->export_data([
+                    writer::with_context($context)->export_data([
                         get_string('pluginname', 'profilefield_textregex')], $data);
                 }
             }
@@ -137,9 +144,10 @@ class provider implements
     /**
      * Delete all user data which matches the specified context.
      *
-     * @param   context $context A user context.
+     * @param context $context A user context.
+     * @throws dml_exception
      */
-    public static function delete_data_for_all_users_in_context(\context $context) {
+    public static function delete_data_for_all_users_in_context(context $context): void {
         // Delete data only for user context.
         if ($context->contextlevel == CONTEXT_USER) {
             static::delete_data($context->instanceid);
@@ -150,11 +158,12 @@ class provider implements
      * Delete multiple users within a single context.
      *
      * @param approved_userlist $userlist The approved context and user information to delete information for.
+     * @throws dml_exception
      */
-    public static function delete_data_for_users(approved_userlist $userlist) {
+    public static function delete_data_for_users(approved_userlist $userlist): void {
         $context = $userlist->get_context();
 
-        if ($context instanceof \context_user) {
+        if ($context instanceof context_user) {
             static::delete_data($context->instanceid);
         }
     }
@@ -162,9 +171,10 @@ class provider implements
     /**
      * Delete all user data for the specified user, in the specified contexts.
      *
-     * @param   approved_contextlist    $contextlist    The approved contexts and user information to delete information for.
+     * @param approved_contextlist $contextlist The approved contexts and user information to delete information for.
+     * @throws dml_exception
      */
-    public static function delete_data_for_user(approved_contextlist $contextlist) {
+    public static function delete_data_for_user(approved_contextlist $contextlist): void {
         $user = $contextlist->get_user();
         foreach ($contextlist->get_contexts() as $context) {
             // Check if the context is a user context.
@@ -177,9 +187,10 @@ class provider implements
     /**
      * Delete data related to a userid.
      *
-     * @param  int $userid The user ID
+     * @param int $userid The user ID
+     * @throws dml_exception
      */
-    protected static function delete_data($userid) {
+    protected static function delete_data(int $userid): void {
         global $DB;
 
         $params = [
@@ -195,10 +206,11 @@ class provider implements
     /**
      * Get records related to this plugin and user.
      *
-     * @param  int $userid The user ID
+     * @param int $userid The user ID
      * @return array An array of records.
+     * @throws dml_exception
      */
-    protected static function get_records($userid) {
+    protected static function get_records(int $userid): array {
         global $DB;
 
         $sql = "SELECT *
