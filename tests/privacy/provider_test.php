@@ -138,36 +138,12 @@ final class provider_test extends provider_testcase {
     }
 
     /**
-     * Test that data is exported correctly for this plugin.
+     * Test that user data is deleted for this user.
+     *
+     * @coversNothing
+     * @throws dml_exception
      */
-    public function test_export_user_data(): void {
-        // Create profile category.
-        $categoryid = $this->add_profile_category();
-        // Create textregex profile field.
-        $textregexprofilefieldid = $this->add_profile_field($categoryid, 'textregex');
-        // Create checkbox profile field.
-        $checkboxprofilefieldid = $this->add_profile_field($categoryid, 'checkbox');
-        // Create a user.
-        $user = $this->getDataGenerator()->create_user();
-        $context = \context_user::instance($user->id);
-        // Add textregex user info data.
-        $this->add_user_info_data($user->id, $textregexprofilefieldid, 'test textregex');
-        // Add checkbox user info data.
-        $this->add_user_info_data($user->id, $checkboxprofilefieldid, 'test data');
-        $writer = \core_privacy\local\request\writer::with_context($context);
-        $this->assertFalse($writer->has_any_data());
-        $this->export_context_data_for_user($user->id, $context, 'profilefield_textregex');
-        $data = $writer->get_data([get_string('pluginname', 'profilefield_textregex')]);
-        $this->assertCount(3, (array) $data);
-        $this->assertEquals('Test field', $data->name);
-        $this->assertEquals('This is a test.', $data->description);
-        $this->assertEquals('test textregex', $data->data);
-    }
-
-    /**
-     * Test that user data is deleted using the context.
-     */
-    public function test_delete_data_for_all_users_in_context(): void {
+    public function test_delete_data_for_user(): void {
         global $DB;
         // Create profile category.
         $categoryid = $this->add_profile_category();
@@ -185,11 +161,52 @@ final class provider_test extends provider_testcase {
         // Check that we have two entries.
         $userinfodata = $DB->get_records('user_info_data', ['userid' => $user->id]);
         $this->assertCount(2, $userinfodata);
-        provider::delete_data_for_all_users_in_context($context);
+        $approvedlist = new approved_contextlist($user, 'profilefield_textregex',
+            [$context->id]);
+        provider::delete_data_for_user($approvedlist);
         // Check that the correct profile field has been deleted.
         $userinfodata = $DB->get_records('user_info_data', ['userid' => $user->id]);
         $this->assertCount(1, $userinfodata);
         $this->assertNotEquals('test textregex', reset($userinfodata)->data);
+    }
+
+    /**
+     * Test that only users with a user context are fetched.
+     *
+     * @coversNothing
+     * @throws dml_exception
+     */
+    public function test_get_users_in_context(): void {
+        $this->resetAfterTest();
+
+        $component = 'profilefield_textregex';
+        // Create profile category.
+        $categoryid = $this->add_profile_category();
+        // Create textregex profile field.
+        $profilefieldid = $this->add_profile_field($categoryid, 'textregex');
+
+        // Create a user.
+        $user = $this->getDataGenerator()->create_user();
+        $usercontext = context_user::instance($user->id);
+        // The list of users should not return anything yet (related data still haven't been created).
+        $userlist = new userlist($usercontext, $component);
+        provider::get_users_in_context($userlist);
+        $this->assertCount(0, $userlist);
+
+        $this->add_user_info_data($user->id, $profilefieldid, 'test data');
+
+        // The list of users for user context should return the user.
+        provider::get_users_in_context($userlist);
+        $this->assertCount(1, $userlist);
+        $expected = [$user->id];
+        $actual = $userlist->get_userids();
+        $this->assertEquals($expected, $actual);
+
+        // The list of users for system context should not return any users.
+        $systemcontext = context_system::instance();
+        $userlist = new userlist($systemcontext, $component);
+        provider::get_users_in_context($userlist);
+        $this->assertCount(0, $userlist);
     }
 
     /**
