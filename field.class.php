@@ -61,7 +61,7 @@ class profile_field_textregex extends profile_field_base {
     /**
      * Add fields for editing a textregex profile field.
      *
-     * @param moodleform $mform
+     * @param MoodleQuickForm $mform
      * @throws coding_exception
      */
     public function edit_field_add($mform): void {
